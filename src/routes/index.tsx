@@ -42,12 +42,12 @@ const BRAND = {
 const NAV_LINKS = ["Home", "Services", "About", "Gallery", "Contact"] as const;
 
 const SERVICES = [
-  { icon: "✦", cat: "Facial Treatments", items: ["Hydra Facial", "24K Gold Facial", "Microdermabrasion", "Chemical Peel", "LED Therapy"], price: "From ₹2,500" },
-  { icon: "✧", cat: "Skincare Solutions", items: ["Acne Management", "Pigmentation Therapy", "Anti-Aging Ritual", "Brightening Protocol", "Sensitive Skin Care"], price: "From ₹3,000" },
-  { icon: "❋", cat: "Hair Care", items: ["Keratin Treatment", "Hair Botox", "Scalp Treatment", "Deep Conditioning", "Colour & Highlights"], price: "From ₹1,800" },
-  { icon: "◈", cat: "Makeup Services", items: ["Bridal Makeup", "Party Glam", "Airbrush Finish", "Editorial Looks", "Skin-Prep Ritual"], price: "From ₹3,500" },
-  { icon: "❁", cat: "Beauty Packages", items: ["Bride-to-Be Package", "Monthly Glow", "Detox & Renew", "Head-to-Toe Luxury", "Seasonal Reset"], price: "From ₹6,500" },
-  { icon: "◇", cat: "Premium Collections", items: ["Rumy Signature Serum", "Rose Gold Eye Cream", "Velvet Lip Elixir", "Renewal Face Mask", "Glow Ritual Kit"], price: "From ₹1,200" },
+  { icon: "✦", cat: "Facial Treatments", items: ["Hydra Facial", "24K Gold Facial", "Microdermabrasion", "Chemical Peel", "LED Therapy"], price: "From ₹2,500", img: sFacial },
+  { icon: "✧", cat: "Skincare Solutions", items: ["Acne Management", "Pigmentation Therapy", "Anti-Aging Ritual", "Brightening Protocol", "Sensitive Skin Care"], price: "From ₹3,000", img: sSkincare },
+  { icon: "❋", cat: "Hair Care", items: ["Keratin Treatment", "Hair Botox", "Scalp Treatment", "Deep Conditioning", "Colour & Highlights"], price: "From ₹1,800", img: sHair },
+  { icon: "◈", cat: "Makeup Services", items: ["Bridal Makeup", "Party Glam", "Airbrush Finish", "Editorial Looks", "Skin-Prep Ritual"], price: "From ₹3,500", img: sMakeup },
+  { icon: "❁", cat: "Beauty Packages", items: ["Bride-to-Be Package", "Monthly Glow", "Detox & Renew", "Head-to-Toe Luxury", "Seasonal Reset"], price: "From ₹6,500", img: sPackage },
+  { icon: "◇", cat: "Premium Collections", items: ["Rumy Signature Serum", "Rose Gold Eye Cream", "Velvet Lip Elixir", "Renewal Face Mask", "Glow Ritual Kit"], price: "From ₹1,200", img: sPremium },
 ];
 
 const TESTIMONIALS = [
