@@ -400,7 +400,7 @@ function HomePage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd: (na
   );
 }
 
-function ServicesPage({ navigate }: { navigate: (p: Page) => void }) {
+function ServicesPage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd: (name: string) => void }) {
   const [activeFilter, setActiveFilter] = useState("All");
   const cats = ["All", ...SERVICES.map(s => s.cat)];
 
