@@ -747,6 +747,8 @@ function ContactPage() {
 function RumyWebsite() {
   const [page, setPage] = useState<Page>("Home");
   const [scrolled, setScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [toast, setToast] = useState<string | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -760,12 +762,19 @@ function RumyWebsite() {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleAdd = (name: string) => {
+    setCartCount(c => c + 1);
+    setToast(`✦ ${name} added to your bag`);
+    window.setTimeout(() => setToast(null), 2400);
+  };
+
   return (
     <div style={{ fontFamily: "Georgia, serif", background: "#fdfaf6", minHeight: "100vh", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
         * { box-sizing: border-box; }
         input:focus, textarea:focus, select:focus { border-color: #c9a96e !important; }
         ::placeholder { color: #b0a098; }
@@ -779,18 +788,18 @@ function RumyWebsite() {
       {/* Navbar */}
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? "rgba(253,248,243,0.96)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(201,169,110,0.2)" : "none",
+        background: scrolled ? "rgba(253,248,243,0.96)" : "rgba(253,248,243,0.7)",
+        backdropFilter: "blur(12px)",
+        borderBottom: scrolled ? "1px solid rgba(201,169,110,0.2)" : "1px solid transparent",
         transition: "all 0.4s ease",
         padding: "0 32px",
       }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 88 }}>
           <button onClick={() => navigate("Home")} style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" }} aria-label="Rumy home">
-            <img src={logoImg} alt="Rumy" style={{ height: 36, width: "auto", display: "block" }} />
+            <img src={logoImg} alt="Rumy" style={{ height: 64, width: "auto", display: "block", filter: "drop-shadow(0 2px 8px rgba(201,169,110,0.25))" }} />
           </button>
 
-          <div style={{ display: "flex", gap: 36, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
             {NAV_LINKS.map(l => (
               <button key={l} onClick={() => navigate(l)} style={{
                 background: "none", border: "none", cursor: "pointer",
@@ -804,6 +813,10 @@ function RumyWebsite() {
                 {l}
               </button>
             ))}
+            <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", border: "1px solid rgba(201,169,110,0.4)", fontFamily: "'Cormorant Garamond', serif", fontSize: 12, color: "#5a4e48", letterSpacing: "0.1em" }}>
+              <span style={{ color: "#c9a96e" }}>◇</span> Bag
+              <span style={{ background: "#c9a96e", color: "#fff", fontSize: 10, minWidth: 18, height: 18, borderRadius: 9, display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 5px", fontFamily: "Georgia, serif" }}>{cartCount}</span>
+            </div>
             <CTAButton variant="gold" onClick={() => navigate("Contact")} style={{ padding: "10px 22px", fontSize: 11 }}>
               Book Now
             </CTAButton>
@@ -812,12 +825,19 @@ function RumyWebsite() {
       </nav>
 
       <main style={{ animation: "fadeUp 0.5s ease" }}>
-        {page === "Home" && <HomePage navigate={navigate} />}
-        {page === "Services" && <ServicesPage navigate={navigate} />}
+        {page === "Home" && <HomePage navigate={navigate} onAdd={handleAdd} />}
+        {page === "Services" && <ServicesPage navigate={navigate} onAdd={handleAdd} />}
         {page === "About" && <AboutPage />}
         {page === "Gallery" && <GalleryPage />}
         {page === "Contact" && <ContactPage />}
       </main>
+
+      {toast && (
+        <div style={{ position: "fixed", bottom: 32, left: "50%", transform: "translateX(-50%)", background: "#1a1a1a", color: "#f5ede0", padding: "16px 28px", border: "1px solid #c9a96e", fontFamily: "'Cormorant Garamond', serif", fontSize: 14, letterSpacing: "0.08em", zIndex: 200, animation: "toastIn 0.3s ease", boxShadow: "0 12px 40px rgba(0,0,0,0.25)" }}>
+          {toast}
+        </div>
+      )}
+
 
       {/* Footer */}
       <footer style={{ background: "#1a1a1a", padding: "80px 32px 40px" }}>
