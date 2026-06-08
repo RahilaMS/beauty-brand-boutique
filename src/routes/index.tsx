@@ -8,6 +8,12 @@ import pLip from "@/assets/product-lip.jpg";
 import pMask from "@/assets/product-mask.jpg";
 import pCleanser from "@/assets/product-cleanser.jpg";
 import pKit from "@/assets/product-kit.jpg";
+import sFacial from "@/assets/service-facial.jpg";
+import sSkincare from "@/assets/service-skincare.jpg";
+import sHair from "@/assets/service-hair.jpg";
+import sMakeup from "@/assets/service-makeup.jpg";
+import sPackage from "@/assets/service-package.jpg";
+import sPremium from "@/assets/service-premium.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
