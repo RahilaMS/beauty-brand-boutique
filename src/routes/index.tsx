@@ -8,6 +8,12 @@ import pLip from "@/assets/product-lip.jpg";
 import pMask from "@/assets/product-mask.jpg";
 import pCleanser from "@/assets/product-cleanser.jpg";
 import pKit from "@/assets/product-kit.jpg";
+import sFacial from "@/assets/service-facial.jpg";
+import sSkincare from "@/assets/service-skincare.jpg";
+import sHair from "@/assets/service-hair.jpg";
+import sMakeup from "@/assets/service-makeup.jpg";
+import sPackage from "@/assets/service-package.jpg";
+import sPremium from "@/assets/service-premium.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,12 +42,12 @@ const BRAND = {
 const NAV_LINKS = ["Home", "Services", "About", "Gallery", "Contact"] as const;
 
 const SERVICES = [
-  { icon: "✦", cat: "Facial Treatments", items: ["Hydra Facial", "24K Gold Facial", "Microdermabrasion", "Chemical Peel", "LED Therapy"], price: "From ₹2,500" },
-  { icon: "✧", cat: "Skincare Solutions", items: ["Acne Management", "Pigmentation Therapy", "Anti-Aging Ritual", "Brightening Protocol", "Sensitive Skin Care"], price: "From ₹3,000" },
-  { icon: "❋", cat: "Hair Care", items: ["Keratin Treatment", "Hair Botox", "Scalp Treatment", "Deep Conditioning", "Colour & Highlights"], price: "From ₹1,800" },
-  { icon: "◈", cat: "Makeup Services", items: ["Bridal Makeup", "Party Glam", "Airbrush Finish", "Editorial Looks", "Skin-Prep Ritual"], price: "From ₹3,500" },
-  { icon: "❁", cat: "Beauty Packages", items: ["Bride-to-Be Package", "Monthly Glow", "Detox & Renew", "Head-to-Toe Luxury", "Seasonal Reset"], price: "From ₹6,500" },
-  { icon: "◇", cat: "Premium Collections", items: ["Rumy Signature Serum", "Rose Gold Eye Cream", "Velvet Lip Elixir", "Renewal Face Mask", "Glow Ritual Kit"], price: "From ₹1,200" },
+  { icon: "✦", cat: "Facial Treatments", items: ["Hydra Facial", "24K Gold Facial", "Microdermabrasion", "Chemical Peel", "LED Therapy"], price: "From ₹2,500", img: sFacial },
+  { icon: "✧", cat: "Skincare Solutions", items: ["Acne Management", "Pigmentation Therapy", "Anti-Aging Ritual", "Brightening Protocol", "Sensitive Skin Care"], price: "From ₹3,000", img: sSkincare },
+  { icon: "❋", cat: "Hair Care", items: ["Keratin Treatment", "Hair Botox", "Scalp Treatment", "Deep Conditioning", "Colour & Highlights"], price: "From ₹1,800", img: sHair },
+  { icon: "◈", cat: "Makeup Services", items: ["Bridal Makeup", "Party Glam", "Airbrush Finish", "Editorial Looks", "Skin-Prep Ritual"], price: "From ₹3,500", img: sMakeup },
+  { icon: "❁", cat: "Beauty Packages", items: ["Bride-to-Be Package", "Monthly Glow", "Detox & Renew", "Head-to-Toe Luxury", "Seasonal Reset"], price: "From ₹6,500", img: sPackage },
+  { icon: "◇", cat: "Premium Collections", items: ["Rumy Signature Serum", "Rose Gold Eye Cream", "Velvet Lip Elixir", "Renewal Face Mask", "Glow Ritual Kit"], price: "From ₹1,200", img: sPremium },
 ];
 
 const TESTIMONIALS = [
@@ -167,7 +173,7 @@ function PhotoBlock({ src, alt, aspectRatio = "3/4", style = {} }: { src: string
 
 type Page = (typeof NAV_LINKS)[number];
 
-function HomePage({ navigate }: { navigate: (p: Page) => void }) {
+function HomePage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd: (name: string) => void }) {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -253,7 +259,7 @@ function HomePage({ navigate }: { navigate: (p: Page) => void }) {
                 onMouseLeave={e => { e.currentTarget.style.borderBottomColor = "transparent"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 onClick={() => navigate("Services")}
               >
-                <ImagePlaceholder index={i} style={{ marginBottom: 24, height: 200 }} aspectRatio="4/3" />
+                <PhotoBlock src={s.img} alt={s.cat} aspectRatio="4/3" style={{ marginBottom: 24 }} />
                 <div style={{ fontSize: 24, color: "#c9a96e", marginBottom: 12 }}>{s.icon}</div>
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 500, color: "#1a1a1a", margin: "0 0 8px" }}>{s.cat}</h3>
                 <p style={{ fontSize: 13, color: "#9a8880", marginBottom: 16, lineHeight: 1.6 }}>{s.items.slice(0, 3).join(" · ")}</p>
@@ -319,7 +325,7 @@ function HomePage({ navigate }: { navigate: (p: Page) => void }) {
                   <p style={{ fontSize: 12, color: "#9a8880", margin: "0 0 12px", lineHeight: 1.5 }}>{p.desc}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: "#1a1a1a", fontWeight: 600 }}>{p.price}</span>
-                    <button style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", background: "transparent", border: "1px solid #1a1a1a", color: "#1a1a1a", padding: "6px 14px", cursor: "pointer", fontFamily: "'Cormorant Garamond', serif" }}>
+                    <button onClick={() => onAdd(p.name)} style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", background: "transparent", border: "1px solid #1a1a1a", color: "#1a1a1a", padding: "6px 14px", cursor: "pointer", fontFamily: "'Cormorant Garamond', serif" }}>
                       Add
                     </button>
                   </div>
@@ -394,7 +400,7 @@ function HomePage({ navigate }: { navigate: (p: Page) => void }) {
   );
 }
 
-function ServicesPage({ navigate }: { navigate: (p: Page) => void }) {
+function ServicesPage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd: (name: string) => void }) {
   const [activeFilter, setActiveFilter] = useState("All");
   const cats = ["All", ...SERVICES.map(s => s.cat)];
 
@@ -425,7 +431,7 @@ function ServicesPage({ navigate }: { navigate: (p: Page) => void }) {
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 40 }}>
           {SERVICES.filter(s => activeFilter === "All" || s.cat === activeFilter).map((s, i) => (
             <div key={s.cat} style={{ background: "#fff" }}>
-              <ImagePlaceholder index={i} aspectRatio="16/9" label={s.cat} />
+              <PhotoBlock src={s.img} alt={s.cat} aspectRatio="16/9" />
               <div style={{ padding: 36 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 500, color: "#1a1a1a", margin: 0 }}>{s.cat}</h3>
@@ -468,7 +474,7 @@ function ServicesPage({ navigate }: { navigate: (p: Page) => void }) {
                   <p style={{ fontSize: 12, color: "#7a7068", lineHeight: 1.5, margin: "0 0 14px" }}>{p.desc}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: "#c9a96e" }}>{p.price}</span>
-                    <button style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", background: "transparent", border: "1px solid #c9a96e", color: "#c9a96e", padding: "6px 14px", cursor: "pointer" }}>Shop</button>
+                    <button onClick={() => onAdd(p.name)} style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", background: "transparent", border: "1px solid #c9a96e", color: "#c9a96e", padding: "6px 14px", cursor: "pointer" }}>Add to Cart</button>
                   </div>
                 </div>
               </div>
@@ -741,6 +747,8 @@ function ContactPage() {
 function RumyWebsite() {
   const [page, setPage] = useState<Page>("Home");
   const [scrolled, setScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [toast, setToast] = useState<string | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -754,12 +762,19 @@ function RumyWebsite() {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleAdd = (name: string) => {
+    setCartCount(c => c + 1);
+    setToast(`✦ ${name} added to your bag`);
+    window.setTimeout(() => setToast(null), 2400);
+  };
+
   return (
     <div style={{ fontFamily: "Georgia, serif", background: "#fdfaf6", minHeight: "100vh", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap');
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
         * { box-sizing: border-box; }
         input:focus, textarea:focus, select:focus { border-color: #c9a96e !important; }
         ::placeholder { color: #b0a098; }
@@ -773,18 +788,18 @@ function RumyWebsite() {
       {/* Navbar */}
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? "rgba(253,248,243,0.96)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(201,169,110,0.2)" : "none",
+        background: scrolled ? "rgba(253,248,243,0.96)" : "rgba(253,248,243,0.7)",
+        backdropFilter: "blur(12px)",
+        borderBottom: scrolled ? "1px solid rgba(201,169,110,0.2)" : "1px solid transparent",
         transition: "all 0.4s ease",
         padding: "0 32px",
       }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 88 }}>
           <button onClick={() => navigate("Home")} style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center" }} aria-label="Rumy home">
-            <img src={logoImg} alt="Rumy" style={{ height: 36, width: "auto", display: "block" }} />
+            <img src={logoImg} alt="Rumy" style={{ height: 64, width: "auto", display: "block", filter: "drop-shadow(0 2px 8px rgba(201,169,110,0.25))" }} />
           </button>
 
-          <div style={{ display: "flex", gap: 36, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
             {NAV_LINKS.map(l => (
               <button key={l} onClick={() => navigate(l)} style={{
                 background: "none", border: "none", cursor: "pointer",
@@ -798,6 +813,10 @@ function RumyWebsite() {
                 {l}
               </button>
             ))}
+            <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", border: "1px solid rgba(201,169,110,0.4)", fontFamily: "'Cormorant Garamond', serif", fontSize: 12, color: "#5a4e48", letterSpacing: "0.1em" }}>
+              <span style={{ color: "#c9a96e" }}>◇</span> Bag
+              <span style={{ background: "#c9a96e", color: "#fff", fontSize: 10, minWidth: 18, height: 18, borderRadius: 9, display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 5px", fontFamily: "Georgia, serif" }}>{cartCount}</span>
+            </div>
             <CTAButton variant="gold" onClick={() => navigate("Contact")} style={{ padding: "10px 22px", fontSize: 11 }}>
               Book Now
             </CTAButton>
@@ -806,12 +825,19 @@ function RumyWebsite() {
       </nav>
 
       <main style={{ animation: "fadeUp 0.5s ease" }}>
-        {page === "Home" && <HomePage navigate={navigate} />}
-        {page === "Services" && <ServicesPage navigate={navigate} />}
+        {page === "Home" && <HomePage navigate={navigate} onAdd={handleAdd} />}
+        {page === "Services" && <ServicesPage navigate={navigate} onAdd={handleAdd} />}
         {page === "About" && <AboutPage />}
         {page === "Gallery" && <GalleryPage />}
         {page === "Contact" && <ContactPage />}
       </main>
+
+      {toast && (
+        <div style={{ position: "fixed", bottom: 32, left: "50%", transform: "translateX(-50%)", background: "#1a1a1a", color: "#f5ede0", padding: "16px 28px", border: "1px solid #c9a96e", fontFamily: "'Cormorant Garamond', serif", fontSize: 14, letterSpacing: "0.08em", zIndex: 200, animation: "toastIn 0.3s ease", boxShadow: "0 12px 40px rgba(0,0,0,0.25)" }}>
+          {toast}
+        </div>
+      )}
+
 
       {/* Footer */}
       <footer style={{ background: "#1a1a1a", padding: "80px 32px 40px" }}>
