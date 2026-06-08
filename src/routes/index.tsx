@@ -259,7 +259,7 @@ function HomePage({ navigate }: { navigate: (p: Page) => void }) {
                 onMouseLeave={e => { e.currentTarget.style.borderBottomColor = "transparent"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 onClick={() => navigate("Services")}
               >
-                <ImagePlaceholder index={i} style={{ marginBottom: 24, height: 200 }} aspectRatio="4/3" />
+                <PhotoBlock src={s.img} alt={s.cat} aspectRatio="4/3" style={{ marginBottom: 24 }} />
                 <div style={{ fontSize: 24, color: "#c9a96e", marginBottom: 12 }}>{s.icon}</div>
                 <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 500, color: "#1a1a1a", margin: "0 0 8px" }}>{s.cat}</h3>
                 <p style={{ fontSize: 13, color: "#9a8880", marginBottom: 16, lineHeight: 1.6 }}>{s.items.slice(0, 3).join(" · ")}</p>
