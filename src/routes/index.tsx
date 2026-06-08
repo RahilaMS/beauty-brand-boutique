@@ -325,7 +325,7 @@ function HomePage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd: (na
                   <p style={{ fontSize: 12, color: "#9a8880", margin: "0 0 12px", lineHeight: 1.5 }}>{p.desc}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: "#1a1a1a", fontWeight: 600 }}>{p.price}</span>
-                    <button style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", background: "transparent", border: "1px solid #1a1a1a", color: "#1a1a1a", padding: "6px 14px", cursor: "pointer", fontFamily: "'Cormorant Garamond', serif" }}>
+                    <button onClick={() => onAdd(p.name)} style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", background: "transparent", border: "1px solid #1a1a1a", color: "#1a1a1a", padding: "6px 14px", cursor: "pointer", fontFamily: "'Cormorant Garamond', serif" }}>
                       Add
                     </button>
                   </div>
