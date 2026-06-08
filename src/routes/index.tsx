@@ -173,7 +173,7 @@ function PhotoBlock({ src, alt, aspectRatio = "3/4", style = {} }: { src: string
 
 type Page = (typeof NAV_LINKS)[number];
 
-function HomePage({ navigate }: { navigate: (p: Page) => void }) {
+function HomePage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd: (name: string) => void }) {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
