@@ -474,7 +474,7 @@ function ServicesPage({ navigate, onAdd }: { navigate: (p: Page) => void; onAdd:
                   <p style={{ fontSize: 12, color: "#7a7068", lineHeight: 1.5, margin: "0 0 14px" }}>{p.desc}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, color: "#c9a96e" }}>{p.price}</span>
-                    <button style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", background: "transparent", border: "1px solid #c9a96e", color: "#c9a96e", padding: "6px 14px", cursor: "pointer" }}>Shop</button>
+                    <button onClick={() => onAdd(p.name)} style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", background: "transparent", border: "1px solid #c9a96e", color: "#c9a96e", padding: "6px 14px", cursor: "pointer" }}>Add to Cart</button>
                   </div>
                 </div>
               </div>
