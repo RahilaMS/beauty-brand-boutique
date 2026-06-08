@@ -431,7 +431,7 @@ function ServicesPage({ navigate }: { navigate: (p: Page) => void }) {
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 40 }}>
           {SERVICES.filter(s => activeFilter === "All" || s.cat === activeFilter).map((s, i) => (
             <div key={s.cat} style={{ background: "#fff" }}>
-              <ImagePlaceholder index={i} aspectRatio="16/9" label={s.cat} />
+              <PhotoBlock src={s.img} alt={s.cat} aspectRatio="16/9" />
               <div style={{ padding: 36 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 500, color: "#1a1a1a", margin: 0 }}>{s.cat}</h3>
